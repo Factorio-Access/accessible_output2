@@ -21,7 +21,7 @@ setup(
     zip_safe=False,
     install_requires=[
         "libloader",
-        "platform_utils @ https://github.com/accessibleapps/platform_utils.git"
+        "platform_utils @ git+https://github.com/accessibleapps/platform_utils.git"
     ],
     extras_require={
         ':sys_platform == "win32"': ["pywin32", "libloader"],
