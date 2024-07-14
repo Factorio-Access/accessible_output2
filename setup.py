@@ -19,9 +19,9 @@ setup(
     packages=find_packages(),
     package_data={"accessible_output2": ["lib/*"]},
     zip_safe=False,
-    install_requires=["libloader"],
-    dependency_links=[
-        "git+https://github.com/accessibleapps/platform_utils.git",
+    install_requires=[
+        "libloader",
+        "platform_utils @ https://github.com/accessibleapps/platform_utils.git"
     ],
     extras_require={
         ':sys_platform == "win32"': ["pywin32", "libloader"],
