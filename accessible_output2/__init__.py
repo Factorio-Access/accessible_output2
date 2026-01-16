@@ -1,12 +1,23 @@
 from __future__ import absolute_import
 import ctypes
 import os
+import sys
 import types
 from platform_utils import paths
 
 
+def _get_nuitka_binary_dir():
+    """Get Nuitka onefile extraction directory if running under Nuitka."""
+    import __main__
+    return getattr(__main__, "__nuitka_binary_dir", None)
+
+
 def load_library(libname, cdll=False):
-    if paths.is_frozen():
+    # Check for Nuitka onefile first - it extracts to a temp directory
+    nuitka_dir = _get_nuitka_binary_dir()
+    if nuitka_dir:
+        libfile = os.path.join(nuitka_dir, "accessible_output2", "lib", libname)
+    elif paths.is_frozen():
         libfile = os.path.join(
             paths.embedded_data_path(), "accessible_output2", "lib", libname
         )
