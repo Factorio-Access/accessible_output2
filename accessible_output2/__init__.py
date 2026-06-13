@@ -10,9 +10,11 @@ def load_library(libname, cdll=False):
 
     lib_path = lib / libname
     libfile = str(lib_path)
-    if cdll:
-        return ctypes.cdll[libfile]
-    return ctypes.windll[libfile]
+    dll_loader = ctypes.cdll if cdll else ctypes.windll
+    try:
+        return dll_loader[libfile]
+    except AttributeError:
+        return None
 
 
 def get_output_classes():
